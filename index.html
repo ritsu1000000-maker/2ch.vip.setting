@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>複数サイトの埋め込み一覧</title>
+    <title>オリジナル・サイトダッシュボード</title>
     <style>
-        /* 全体のデザイン */
         body {
             font-family: sans-serif;
             background-color: #f0f2f5;
@@ -19,8 +18,7 @@
             margin-bottom: 25px;
         }
 
-        /* 埋め込み枠を並べる設定 */
-        .iframe-container {
+        .container {
             display: flex;
             flex-direction: column;
             gap: 25px;
@@ -28,42 +26,50 @@
             margin: 0 auto;
         }
 
-        /* 各サイトの白い枠 */
+        /* 各サイトの枠組みデザイン */
         .site-box {
             background: #ffffff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* タイトルとカウンターを横に並べる */
         .site-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border-bottom: 2px solid #3182ce;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
         }
 
         .site-header h3 {
             margin: 0;
-            font-size: 16px;
-            color: #555;
+            font-size: 18px;
+            color: #2c3e50;
         }
 
         .counter-area {
-            transform: scale(0.8); /* カウンターの画像が大きすぎないように少し縮小 */
+            transform: scale(0.8);
             transform-origin: right center;
         }
 
-        /* iframe（小窓）の設定 */
-        iframe {
+        /* 読み込んだデータを表示するエリア */
+        .content-area {
             width: 100%;
             height: 450px;
-            border: 1px solid #ddd;
+            overflow-y: auto; /* スクロールできるようにする */
+            border: 1px dashed #cbd5e0;
+            background-color: #f8fafc;
             border-radius: 4px;
+            padding: 10px;
             box-sizing: border-box;
+        }
+
+        .loading-text {
+            color: #718096;
+            text-align: center;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -71,7 +77,7 @@
 
     <h2>指定されたサイト一覧</h2>
 
-    <div class="iframe-container">
+    <div class="container">
         
         <div class="site-box">
             <div class="site-header">
@@ -80,7 +86,7 @@
                     <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><a href="http://www.rays-counter.com/"><img src="http://www.rays-counter.com/d1310_f6_022/6a2356beebdc9/" alt="アクセスカウンター" border="0"></a></td></tr><tr><td align="center"><img src="http://www.rays-counter.com/images/counter_01.gif" border="0"><img src="http://www.rays-counter.com/images/counter_02.gif" border="0"><img src="http://www.rays-counter.com/images/counter_03.gif" border="0"><img src="http://www.rays-counter.com/images/counter_04.gif" border="0" ><img src="http://www.rays-counter.com/images/counter_05.gif" border="0"></td></tr></table>
                 </div>
             </div>
-            <iframe src="https://ritsu1000000-maker.github.io/2ch.viphome/"></iframe>
+            <div id="content-viphome" class="content-area"><div class="loading-text">データを読み込み中...</div></div>
         </div>
 
         <div class="site-box">
@@ -90,7 +96,7 @@
                     <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><a href="http://www.rays-counter.com/"><img src="http://www.rays-counter.com/d1310_f6_022/6a2356beebdc9/" alt="アクセスカウンター" border="0"></a></td></tr><tr><td align="center"><img src="http://www.rays-counter.com/images/counter_01.gif" border="0"><img src="http://www.rays-counter.com/images/counter_02.gif" border="0"><img src="http://www.rays-counter.com/images/counter_03.gif" border="0"><img src="http://www.rays-counter.com/images/counter_04.gif" border="0" ><img src="http://www.rays-counter.com/images/counter_05.gif" border="0"></td></tr></table>
                 </div>
             </div>
-            <iframe src="https://ritsu1000000-maker.github.io/2ch.vipLINE/"></iframe>
+            <div id="content-vipline" class="content-area"><div class="loading-text">データを読み込み中...</div></div>
         </div>
 
         <div class="site-box">
@@ -100,7 +106,7 @@
                     <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><a href="http://www.rays-counter.com/"><img src="http://www.rays-counter.com/d1310_f6_022/6a2356beebdc9/" alt="アクセスカウンター" border="0"></a></td></tr><tr><td align="center"><img src="http://www.rays-counter.com/images/counter_01.gif" border="0"><img src="http://www.rays-counter.com/images/counter_02.gif" border="0"><img src="http://www.rays-counter.com/images/counter_03.gif" border="0"><img src="http://www.rays-counter.com/images/counter_04.gif" border="0" ><img src="http://www.rays-counter.com/images/counter_05.gif" border="0"></td></tr></table>
                 </div>
             </div>
-            <iframe src="https://ritsu1000000-maker.github.io/2ch.vipvideo/"></iframe>
+            <div id="content-vipvideo" class="content-area"><div class="loading-text">データを読み込み中...</div></div>
         </div>
 
         <div class="site-box">
@@ -110,10 +116,39 @@
                     <table border="0" cellspacing="0" cellpadding="0"><tr><td align="center"><a href="http://www.rays-counter.com/"><img src="http://www.rays-counter.com/d1310_f6_022/6a2356beebdc9/" alt="アクセスカウンター" border="0"></a></td></tr><tr><td align="center"><img src="http://www.rays-counter.com/images/counter_01.gif" border="0"><img src="http://www.rays-counter.com/images/counter_02.gif" border="0"><img src="http://www.rays-counter.com/images/counter_03.gif" border="0"><img src="http://www.rays-counter.com/images/counter_04.gif" border="0" ><img src="http://www.rays-counter.com/images/counter_05.gif" border="0"></td></tr></table>
                 </div>
             </div>
-            <iframe src="https://ritsu1000000-maker.github.io/2ch.vip/"></iframe>
+            <div id="content-vip" class="content-area"><div class="loading-text">データを読み込み中...</div></div>
         </div>
 
     </div>
+
+    <script>
+        // 読み込むサイトのリスト
+        const sites = [
+            { id: 'content-viphome', url: 'https://ritsu1000000-maker.github.io/2ch.viphome/' },
+            { id: 'content-vipline', url: 'https://ritsu1000000-maker.github.io/2ch.vipLINE/' },
+            { id: 'content-vipvideo', url: 'https://ritsu1000000-maker.github.io/2ch.vipvideo/' },
+            { id: 'content-vip', url: 'https://ritsu1000000-maker.github.io/2ch.vip/' }
+        ];
+
+        // 各サイトのデータを順番に取得して埋め込む処理
+        sites.forEach(site => {
+            fetch(site.url)
+                .then(response => {
+                    if (!response.ok) throw new Error('通信エラー');
+                    return response.text(); // HTMLデータをテキストとして取得
+                })
+                .then(html => {
+                    // Shadow DOMを使って、デザイン（CSS）が親ページに干渉しないように安全に埋め込む
+                    const container = document.getElementById(site.id);
+                    container.innerHTML = ''; // 「読み込み中」の文字を消す
+                    const shadow = container.attachShadow({ mode: 'open' });
+                    shadow.innerHTML = html; // 取得した本物のHTMLを流し込む
+                })
+                .catch(error => {
+                    document.getElementById(site.id).innerHTML = `<div class="loading-text" style="color: red;">データの取得に失敗しました。</div>`;
+                });
+        });
+    </script>
 
 </body>
 </html>
