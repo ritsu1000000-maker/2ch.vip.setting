@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アクセス数表示設定</title>
+    <style>
+        /* 全体のデザイン（CSS） */
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* メインの白いボックス */
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        /* 入力フォームのレイアウト */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        input[type="text"],
+        input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            box-sizing: border-box; /* パディングを含めて幅を計算 */
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus {
+            outline: none;
+            border-color: #3182ce;
+            box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+        }
+
+        /* ボタンのデザイン */
+        button {
+            width: 100%;
+            background-color: #3182ce;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* 結果表示エリアのデザイン */
+        .result-area {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            border-radius: 4px;
+            display: none; /* 初期状態では隠す */
+        }
+
+        .result-area h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #2b6cb0;
+        }
+
+        .count-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>サイト情報の入力</h2>
+        
+        <div class="form-group">
+            <label for="site-name">サイト名</label>
+            <input type="text" id="site-name" placeholder="例: 私のブログ">
+        </div>
+        <div class="form-group">
+            <label for="site-url">サイトURL (APIや画像URLなど)</label>
+            <input type="url" id="site-url" placeholder="https://example.com/api">
+        </div>
+        
+        <button id="apply-btn">アクセス数を表示する</button>
+
+        <div class="result-area" id="result-area">
+            <h3 id="display-site-name">サイト名</h3>
+            <p>現在のアクセス数： <span class="count-display" id="display-count">読み込み中...</span></p>
+            <p style="font-size: 12px; color: #718096; word-break: break-all;">
+                対象URL: <span id="display-site-url"></span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ボタンがクリックされたときの処理
+        document.getElementById('apply-btn').addEventListener('click', function() {
+            // 入力された値を取得
+            const siteName = document.getElementById('site-name').value;
+            const siteUrl = document.getElementById('site-url').value;
+
+            // 入力チェック（空欄の場合は警告を出す）
+            if (!siteName || !siteUrl) {
+                alert('サイト名とURLの両方を入力してください。');
+                return;
+            }
+
+            // 取得した値を結果エリアに反映
+            document.getElementById('display-site-name').innerText = siteName;
+            document.getElementById('display-site-url').innerText = siteUrl;
+
+            // 結果エリアを表示する
+            document.getElementById('result-area').style.display = 'block';
+
+            // ※ここにURL（APIなど）からアクセス数を取得する処理を追加します
+            // 今回はダミーでランダムな数字を1秒後に表示する演出を入れています
+            document.getElementById('display-count').innerText = "読み込み中...";
+            setTimeout(() => {
+                const dummyCount = Math.floor(Math.random() * 10000) + 100; // ダミーの数字
+                document.getElementById('display-count').innerText = dummyCount.toLocaleString() + " 回";
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
